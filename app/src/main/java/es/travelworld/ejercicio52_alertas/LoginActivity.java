@@ -5,6 +5,8 @@ import static es.travelworld.ejercicio52_alertas.tools.References.KEY_USER;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +16,12 @@ import android.view.View;
 
 import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.Objects;
+
 import es.travelworld.ejercicio52_alertas.databinding.ActivityLoginBinding;
+import es.travelworld.ejercicio52_alertas.fragments.LoginErrorFragment;
+import es.travelworld.ejercicio52_alertas.fragments.WipFragment;
 import es.travelworld.ejercicio52_alertas.tools.User;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -110,17 +117,19 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void login() {
-        if(binding.loginInputPassword.getText()==null || binding.loginInputUser.getText()==null){
+        /*if(binding.loginInputPassword.getText()==null || binding.loginInputUser.getText()==null){
             Snackbar.make(binding.getRoot(), R.string.login_error, BaseTransientBottomBar.LENGTH_LONG).show();
             return;
-        }
-        if(binding.loginInputPassword.getText().toString().equals(user.getPassword()) && binding.loginInputUser.getText().toString().equals(user.getName())){
+        }*/
+        if(Objects.requireNonNull(binding.loginInputPassword.getText()).toString().equals(user.getPassword()) && Objects.requireNonNull(binding.loginInputUser.getText()).toString().equals(user.getName())){
             Intent intent = new Intent(this, HomeActivity.class);
             intent.putExtra(KEY_USER, user);
             startActivity(intent);
         }
         else{
-            Snackbar.make(binding.getRoot(), R.string.login_error, BaseTransientBottomBar.LENGTH_LONG).show();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            LoginErrorFragment loginErrorFragment = LoginErrorFragment.newInstance();
+            loginErrorFragment.show(fragmentManager,null);
         }
     }
 }

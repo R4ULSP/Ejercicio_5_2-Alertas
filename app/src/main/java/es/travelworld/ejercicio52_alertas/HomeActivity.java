@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
+
 import es.travelworld.ejercicio52_alertas.databinding.ActivityHomeBinding;
 import es.travelworld.ejercicio52_alertas.fragments.WipFragment;
 import es.travelworld.ejercicio52_alertas.tools.User;
@@ -28,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar);
 
-        Log.i("---Datos usuario","Nombre: " + user.getName() + "\nApellidos: " + user.getLastname() + "\nEdad:" + user.getAgeGroup());
+        Log.i("---Datos usuario","Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup());
+        Snackbar.make(binding.getRoot(), "Nombre: " + user.getName() + "  Apellidos: " + user.getLastname() + "  Edad:" + user.getAgeGroup(), BaseTransientBottomBar.LENGTH_LONG).show();
     }
 
     @Override
